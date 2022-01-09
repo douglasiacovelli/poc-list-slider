@@ -17,12 +17,12 @@ class _AnimatedCarouselState extends State<AnimatedCarousel>
   late AnimationController _controller;
   late ScrollController _scrollController;
   late int orientationFactor;
-  late double offset = 100000;
+  late double offset = 0;
 
   @override
   void initState() {
     orientationFactor = widget.reverse ? -1 : 1;
-    _scrollController = ScrollController(initialScrollOffset: 100000);
+    _scrollController = ScrollController();
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
@@ -31,7 +31,7 @@ class _AnimatedCarouselState extends State<AnimatedCarousel>
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _controller.repeat();
       _controller.addListener(() {
-        offset = offset + 0.4 * orientationFactor;
+        offset = offset + 0.4;
         _scrollController.jumpTo(offset);
       });
     });
@@ -44,6 +44,7 @@ class _AnimatedCarouselState extends State<AnimatedCarousel>
     return ListView.builder(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,
+        reverse: widget.reverse,
         itemBuilder: (context, index) {
           return Align(
             child: Container(
