@@ -1,4 +1,4 @@
-# carousel_animation
+# Diagonal list animation
 
 
 
